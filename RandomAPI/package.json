@@ -1,0 +1,14 @@
+{
+  "name": "RandomAPI",
+  "version": "0.0.1",
+  "description": "The micro-service generation vector object",
+  "author":"NaGuWaL<naguwal@gmail.com>",
+  "main":"server.js",
+  "scripts":{
+    "start": "node server.js> RandomAPI_log.log 2> RandomAPI_err.log"
+  },
+
+  "dependencies": {
+
+  }
+}

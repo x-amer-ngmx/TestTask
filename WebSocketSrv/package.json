@@ -1,0 +1,13 @@
+{
+  "name": "WebSocketSrv",
+  "version": "0.0.1",
+  "description": "The micro-service is layer vectorGeneration and WebUI",
+  "author":"NaGuWaL<naguwal@gmail.com>",
+  "main":"server.js",
+  "scripts":{
+    "start": "node server.js> WebSocketSrv_log.log 2> WebSocketSrv_err.log"
+  },
+  "dependencies": {
+    "sockjs": "^0.3.18"
+  }
+}

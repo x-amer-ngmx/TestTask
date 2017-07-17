@@ -1,0 +1,22 @@
+{
+  "name": "RandomGeneratorUI",
+  "version": "0.0.1",
+  "description": "The web server WebUI",
+  "author": "NaGuWaL<naguwal@gmail.com>",
+  "license": "N/A",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js> RandomGeneratorUI_log.log 2> RandomGeneratorUI_err.log"
+  },
+  "dependencies": {
+    "grunt": "^1.0.1",
+    "node-static": "^0.7.9"
+  },
+  "devDependencies": {
+    "bootstrap-sass": "^3.3.7",
+    "gulp": "^3.9.1",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-sass": "^3.1.0",
+    "node-sass": "^4.5.3"
+  }
+}

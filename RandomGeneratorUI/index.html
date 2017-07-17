@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
+    <title>Title</title>
+
+    <style>
+        #tableVector{
+            height: 500px;
+            overflow-y: scroll;
+        }
+    </style>
+
+</head>
+<body>
+<button id="getV" class="btn btn-success"> get vector </button>
+<button id="closeS" class="btn btn-danger"> close </button>
+<button id="clearV" class="btn btn-primary"> clear list </button>
+<div id="main">
+    <div id="infoOpen"></div>
+    <div id="tableVector"></div>
+</div>
+
+<script type="text/javascript">
+    window.onload = function() {
+        var sock=new SockJS('http://192.168.42.68:3333/random');
+        var open = document.getElementById('infoOpen');
+        var vector = document.getElementById('tableVector');
+
+        getV.onclick = function(){
+            sock.send('test');
+        };
+
+        closeS.onclick = function(){
+            sock.close();
+        };
+
+        clearV.onclick = function(){
+            vector.innerHTML = '';
+        };
+
+
+        sock.onopen = function() {
+
+            open.textContent = 'connection is opened';
+            console.log('open');
+
+        };
+
+        sock.onmessage = function(e) {
+            console.log(e.data);
+            var dataJ='';
+            var upnode = document.createElement("div");
+            var upnodex = document.createElement("div");
+            var upnodey = document.createElement("div");
+            var upnodez = document.createElement("div");
+
+            upnode.className="row";
+
+            try {
+                dataJ = JSON.parse(e.data);
+
+                var classx= "col-xs-3 bg-success text-center";
+
+                upnodex.className=classx;
+                upnodey.className=classx;
+                upnodez.className=classx;
+
+                upnodex.textContent='x= '+dataJ.x;
+                upnodey.textContent='y= '+dataJ.y;
+                upnodez.textContent='z= '+dataJ.z;
+
+                upnode.appendChild(upnodex);
+                upnode.appendChild(upnodey);
+                upnode.appendChild(upnodez);
+
+            }catch (ex){
+                upnode.className="row col-xs-0 bg-danger";
+                upnode.textContent='data is not get';
+            }
+            vector.appendChild(upnode);
+        };
+
+        sock.onclose = function() {
+            open.textContent='connection is close';
+            vector.innerHTML = '';
+            console.log('close');
+        };
+    };
+</script>
+</body>
+</html>
