@@ -14,7 +14,5 @@ var srv = net.createServer(function (socket) {
         let buf = new Buffer(result);
         socket.write(buf);
     });
-    //socket.pipe(socket);
 });
-//srv.setMaxListeners(999);
 srv.listen(7344,'0.0.0.0');

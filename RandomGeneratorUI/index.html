@@ -4,14 +4,6 @@
     <meta charset="UTF-8">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
     <title>Title</title>
-
-    <style>
-        #tableVector{
-            height: 500px;
-            overflow-y: scroll;
-        }
-    </style>
-
 </head>
 <body>
 <button id="getV" class="btn btn-success"> get vector </button>
@@ -21,10 +13,10 @@
     <div id="infoOpen"></div>
     <div id="tableVector"></div>
 </div>
-
+<link type="text/css" rel="stylesheet" href="./static/css/main.css" />
 <script type="text/javascript">
     window.onload = function() {
-        var sock=new SockJS('http://192.168.42.68:3333/random');
+        var sock=new SockJS('http://'+window.location.hostname+':3333/random');
         var open = document.getElementById('infoOpen');
         var vector = document.getElementById('tableVector');
 
@@ -44,33 +36,37 @@
         sock.onopen = function() {
 
             open.textContent = 'connection is opened';
-            console.log('open');
+            console.log('open'+JSON.stringify(sock));
 
         };
 
         sock.onmessage = function(e) {
             console.log(e.data);
-            var dataJ='';
+            var dataJ={};
             var upnode = document.createElement("div");
             var upnodex = document.createElement("div");
             var upnodey = document.createElement("div");
             var upnodez = document.createElement("div");
+            var upnodeid = document.createElement("div");
 
             upnode.className="row";
 
             try {
                 dataJ = JSON.parse(e.data);
 
-                var classx= "col-xs-3 bg-success text-center";
+                var classx= "col-sm-4 bg-success text-center";
 
                 upnodex.className=classx;
                 upnodey.className=classx;
                 upnodez.className=classx;
+                upnodeid.className="col-md-0 bg-warning";
 
                 upnodex.textContent='x= '+dataJ.x;
                 upnodey.textContent='y= '+dataJ.y;
                 upnodez.textContent='z= '+dataJ.z;
-
+                upnodeid.textContent='id='+dataJ.id;
+                upnode.className = 'row show-grid';
+                upnode.appendChild(upnodeid);
                 upnode.appendChild(upnodex);
                 upnode.appendChild(upnodey);
                 upnode.appendChild(upnodez);
@@ -79,7 +75,7 @@
                 upnode.className="row col-xs-0 bg-danger";
                 upnode.textContent='data is not get';
             }
-            vector.appendChild(upnode);
+            vector.prepend(upnode);
         };
 
         sock.onclose = function() {
